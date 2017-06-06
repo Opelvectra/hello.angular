@@ -2,14 +2,13 @@
 
 /**
  * @ngdoc function
- * @name helloangularApp.controller:MainCtrl
+ * @name angularSkeletonApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the helloangularApp
+ * Controller of the angularSkeletonApp
  */
-angular.module('helloangularApp')
+angular.module('angularSkeletonApp')
   .controller('MainCtrl', function () {
-	  console.log(0);
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

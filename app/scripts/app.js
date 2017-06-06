@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name helloangularApp
+ * @name angularSkeletonApp
  * @description
- * # helloangularApp
+ * # angularSkeletonApp
  *
  * Main module of the application.
  */
 angular
-  .module('helloangularApp', [
+  .module('angularSkeletonApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

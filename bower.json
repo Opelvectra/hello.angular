@@ -1,0 +1,36 @@
+{
+  "name": "angular-skeleton",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.5.x",
+    "angular-ui-router": "0.4.x",
+    "angular-bootstrap": "latest",
+    "angular-confirm-modal": "latest",
+    "bootstrap-css": "latest",
+    "angular-ui-select": "latest",
+    "angular-animate": "1.5.x",
+    "angular-cookies": "1.5.x",
+    "angular-messages": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "angular-sanitize": "1.5.x",
+    "angular-touch": "1.5.x",
+    "restangular": "^1.5.2",
+    "ng-file-upload": "latest",
+    "ng-img-crop": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.5.x"
+  },
+  "appPath": "app",
+  "moduleName": "angularSkeletonApp",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}
