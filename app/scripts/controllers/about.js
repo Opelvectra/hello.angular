@@ -8,9 +8,14 @@
  * Controller of the angularSkeletonApp
  */
 angular.module('angularSkeletonApp')
-  .controller('AboutCtrl', ['$scope', '$battleground.engine.dbConnector', function ($scope, $battlegroundDBConnector) {
-    $scope.battlegroundState = $battlegroundDBConnector.getBattleground(0);
+  .controller('AboutCtrl', ['$scope', '$battleground.engine.api', function ($scope, $battlegroundApi) {
+    $scope.battlegroundState = $battlegroundApi.getBattlegroundState();
     $scope.performAction = function(){
-    	//TODO: to implement!
+    	var actBy = 0, targetId = 0,
+    		actionId = 0;
+    	$battlegroundApi.performAction(actBy, actionId, targetId).then(function(result){
+    		console.log('>> ' + result.message);
+    		$scope.battlegroundState = result.battlegroundState;
+    	});
     }
   }]);
