@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'battleground.engine'
   ])
   .config(function ($routeProvider) {
     $routeProvider

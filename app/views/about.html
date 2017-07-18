@@ -1,1 +1,6 @@
-<p>This is the about view.</p>
+<div>{{ battlegroundState }}</div>
+<br/>
+<div ng-repeat="battleUnit in battlegroundState.battleUnits">
+	<div ng-bind="battleUnit.name + '(' + battleUnit.testValue + ')'"></div>
+	<button ng-click="battleUnit.testValue = battleUnit.testValue + 1">++</button>
+</div>

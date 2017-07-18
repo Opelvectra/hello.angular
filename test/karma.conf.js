@@ -24,7 +24,6 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-confirm-modal/angular-confirm.js',
-      'bower_components/bootstrap-css/js/bootstrap.min.js',
       'bower_components/angular-ui-select/dist/select.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-cookies/angular-cookies.js',

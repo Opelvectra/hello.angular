@@ -8,10 +8,9 @@
  * Controller of the angularSkeletonApp
  */
 angular.module('angularSkeletonApp')
-  .controller('AboutCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('AboutCtrl', ['$scope', '$battleground.engine.dbConnector', function ($scope, $battlegroundDBConnector) {
+    $scope.battlegroundState = $battlegroundDBConnector.getBattleground(0);
+    $scope.performAction = function(){
+    	//TODO: to implement!
+    }
+  }]);

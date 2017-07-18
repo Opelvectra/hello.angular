@@ -6,7 +6,6 @@
     "angular-ui-router": "0.4.x",
     "angular-bootstrap": "latest",
     "angular-confirm-modal": "latest",
-    "bootstrap-css": "latest",
     "angular-ui-select": "latest",
     "angular-animate": "1.5.x",
     "angular-cookies": "1.5.x",
@@ -23,14 +22,5 @@
     "angular-mocks": "1.5.x"
   },
   "appPath": "app",
-  "moduleName": "angularSkeletonApp",
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
-      ]
-    }
-  }
+  "moduleName": "angularSkeletonApp"
 }
