@@ -45,10 +45,10 @@ angular
 		  getBattlegroundState: function(){
 			  return $battlegroundDBConnector.getBattleground(0);
 		  },
-		  performAction: function(unitId, actionId, targetId){
+		  performAction: function(unitId, actionId, targetId, targetTeamId){
 			  var defer = $q.defer();
 			  defer.resolve({
-				  message: 'Action #' + actionId + ' performed by ' + unitId + ' to ' + targetId,
+				  message: 'Action #' + actionId + ' performed by ' + unitId + ' to ' + targetId + ' from team #' + targetTeamId,
 				  battlegroundState: $battlegroundDBConnector.getBattleground(0)
 			  });
 			  return defer.promise;

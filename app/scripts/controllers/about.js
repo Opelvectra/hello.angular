@@ -11,9 +11,9 @@ angular.module('angularSkeletonApp')
   .controller('AboutCtrl', ['$scope', '$battleground.engine.api', function ($scope, $battlegroundApi) {
     $scope.battlegroundState = $battlegroundApi.getBattlegroundState();
     $scope.performAction = function(){
-    	var actBy = 0, targetId = 0,
+    	var actBy = 0, targetId = 0, targetTeamId = 1,
     		actionId = 0;
-    	$battlegroundApi.performAction(actBy, actionId, targetId).then(function(result){
+    	$battlegroundApi.performAction(actBy, actionId, targetId, targetTeamId).then(function(result){
     		console.log('>> ' + result.message);
     		$scope.battlegroundState = result.battlegroundState;
     	});
