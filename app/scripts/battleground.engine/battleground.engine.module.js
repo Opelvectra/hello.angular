@@ -50,9 +50,13 @@ angular
 			      actorUnit = battleground.battleUnits.filter(function(battleUnit){
 					  return battleUnit.team === unitTeamId && battleUnit.number === unitId;
 				  })[0],
+				  targetUnit = battleground.battleUnits.filter(function(battleUnit){
+					  return battleUnit.team === targetTeamId && battleUnit.number === targetId;
+				  })[0],
 			      result = {};
 			  if(!isTeamCanAct(unitTeamId, battleground, result) ||
 					  !isUnitCanAct(unitId, battleground, result) ||
+					  !isTargetAvailable(targetUnit, result) ||
 					  !isActionAvailable(actorUnit, actionId, result)){
 				  defer.resolve(result);
 			  } else {
@@ -93,6 +97,17 @@ angular
 		  } else {
 			  result.errorCode = 3;
 			  result.errorMessage = 'Your skill is unavailable';
+			  return false;
+		  }
+	  }
+	  
+	  function isTargetAvailable(targetUnit, result){
+		  var isCanAct = true;// TODO: Later here we will check if unit can be a target
+		  if(isCanAct){
+			  return true;
+		  } else {
+			  result.errorCode = 4;
+			  result.errorMessage = 'Your target is not available';
 			  return false;
 		  }
 	  }
