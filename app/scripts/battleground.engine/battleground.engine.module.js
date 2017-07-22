@@ -7,7 +7,8 @@ angular
 		  team: 0,
 		  number: 0,
 		  battlegroundId: 0,
-		  testValue: 100
+		  testValue: 100,
+		  skills: [30, 150, 210, 320]
 	  }, {
 		  id: 1,
 		  name: 'Test Dummy',
@@ -40,16 +41,42 @@ angular
 		  }
 	  }
   }])
-  .factory('$battleground.engine.api', ['$q', '$battleground.engine.dbConnector', function($q, $battlegroundDBConnector){
+  .factory('$battleground.engine.actionPerformer', ['$q', '$battleground.engine.dbConnector', function($q, $battlegroundDBConnector){
+	  return {
+		  performAction: function(unitId, actionId, targetId, targetTeamId){
+			  var defer = $q.defer();
+			  var unitTeamId = 0, battlegroundId = 0, // TODO: later these will be taken using Security Token;
+			      battleground = $battlegroundDBConnector.getBattleground(0),
+			      result = {};
+			  if(!isTeamCanAct(unitTeamId, battleground, result)){
+				  defer.resolve(result);
+			  }
+			  result.message = 'Action #' + actionId + ' performed by ' + unitId + ' to ' + targetId + ' from team #' + targetTeamId;
+			  result.battlegroundState = $battlegroundDBConnector.getBattleground(0);
+			  defer.resolve(result);
+			  return defer.promise;
+		  }
+	  }
+	  
+	  function isTeamCanAct(unitTeamId, battleground, result){
+		  if(unitTeamId === battleground.id){
+			  return true;
+		  } else {
+			  result.errorCode = 1;
+			  result.errorMessage = 'Your team cant move right now';
+			  return false;
+		  }
+	  }
+  }])
+  .factory('$battleground.engine.api', ['$q', '$battleground.engine.dbConnector', '$battleground.engine.actionPerformer', function($q, $battlegroundDBConnector, $battlegroundActionPerformer){
 	  return {
 		  getBattlegroundState: function(){
 			  return $battlegroundDBConnector.getBattleground(0);
 		  },
 		  performAction: function(unitId, actionId, targetId, targetTeamId){
 			  var defer = $q.defer();
-			  defer.resolve({
-				  message: 'Action #' + actionId + ' performed by ' + unitId + ' to ' + targetId + ' from team #' + targetTeamId,
-				  battlegroundState: $battlegroundDBConnector.getBattleground(0)
+			  $battlegroundActionPerformer.performAction(unitId, actionId, targetId, targetTeamId).then(function(result){
+				  defer.resolve(result);
 			  });
 			  return defer.promise;
 		  }

@@ -14,7 +14,11 @@ angular.module('angularSkeletonApp')
     	var actBy = 0, targetId = 0, targetTeamId = 1,
     		actionId = 0;
     	$battlegroundApi.performAction(actBy, actionId, targetId, targetTeamId).then(function(result){
-    		console.log('>> ' + result.message);
+    		if(result.errorCode){
+    			console.warn('>> oops!\nError #' + result.errorCode + ': ' + result.errorMessage);
+    		} else {
+    			console.log('>> ' + result.message);
+    		}
     		$scope.battlegroundState = result.battlegroundState;
     	});
     }
