@@ -26,7 +26,7 @@ angular
 	  }];
   })
   .factory('$battleground.engine.dbConnector', ['$battleground.engine.dbTables.battleground', 
-	  		'$battleground.engine.dbTables.battleUnits', function(battlegroundTable, battleUnitsTable){
+	  		'$battleground.engine.dbTables.battleUnits', '$battleground.engine.dbTables.skills', function(battlegroundTable, battleUnitsTable, skillsTable){
 	  return {
 		  getBattleground: function(id){
 			  var battlegroundData = battlegroundTable.filter(function(battleground){
@@ -38,6 +38,12 @@ angular
 			  var result = angular.copy(battlegroundData);
 			  result.battleUnits = angular.copy(battleUnits);
 			  return result;
+		  },
+		  getSkillMeta: function(id){
+			  var skillsMeta = skillsTable.filter(function(skill){
+				  return skill.id === id;
+			  })[0];
+			  return skillsMeta;
 		  }
-	  }
+	  };
   }]);
