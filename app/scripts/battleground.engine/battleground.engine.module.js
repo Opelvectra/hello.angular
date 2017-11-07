@@ -25,7 +25,7 @@ angular
 		  currentTeam: 0
 	  }];
   })
-  .factory('$battleground.engine.dbConnector', ['$battleground.engine.dbTables.battleground', 
+  .factory('$battleground.engine.dbConnector', ['$battleground.engine.dbTables.battleground',
 	  		'$battleground.engine.dbTables.battleUnits', '$battleground.engine.dbTables.skills', function(battlegroundTable, battleUnitsTable, skillsTable){
 	  return {
 		  getBattleground: function(id){
@@ -39,6 +39,19 @@ angular
 			  result.battleUnits = angular.copy(battleUnits);
 			  return result;
 		  },
+      saveBattleground: function (battleground) {
+        var battlegroundData = battlegroundTable.filter(function (battlegroundOrigin) {
+          return battleground.id === battlegroundOrigin.id;
+        })[0];
+        var battleUnits = battleUnitsTable.filter(function (battleUnit) {
+          return battleUnit.battlegroundId === battleground.id;
+        });
+        battlegroundData.currentTeam = battleground.currentTeam;
+        battleground.battleUnits.forEach(function (elem, index) {
+          battleUnitsTable[index] = elem;
+        });
+        console.log(battleground);
+      },
 		  getSkillMeta: function(id){
 			  var skillsMeta = skillsTable.filter(function(skill){
 				  return skill.id === id;

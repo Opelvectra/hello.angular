@@ -1,11 +1,5 @@
 angular
   .module('battleground.engine')
-  .factory('$battleground.engine.dbTables.skills', function(){
-	  return [{
-		  id: 30,
-		  description: 'skill #30, simple physic attack'
-	  }];
-  })
   .factory('$battleground.engine.actionPerformer.validation', [function(){
 	  return {
 		  isTeamCanAct: function (unitTeamId, battleground, result){
@@ -62,6 +56,7 @@ angular
 				  targetUnit = battleground.battleUnits.filter(function(battleUnit){
 					  return battleUnit.team === targetTeamId && battleUnit.number === targetId;
 				  })[0],
+				  skillMeta = $battlegroundDBConnector.getSkillMeta(actorUnit.skills[actionId]),
 			      result = {};
 			  if(!$bgValidation.isTeamCanAct(unitTeamId, battleground, result) ||
 					  !$bgValidation.isUnitCanAct(unitId, battleground, result) ||
@@ -69,8 +64,14 @@ angular
 					  !$bgValidation.isActionAvailable(actorUnit, actionId, result)){
 				  defer.resolve(result);
 			  } else {
-				  console.log('>> Validation passed');
-				  var skillMeta = $battlegroundDBConnector.getSkillMeta(actorUnit.skills[actionId]);
+				  performSkill({
+					  skillMeta: skillMeta,
+					  actorUnit: actorUnit,
+					  targetUnit: targetUnit,
+					  targetTeamId: unitTeamId === 0 ? 1 : 0, // TODO: for now it's enough, will improve it later
+					  battleground: battleground
+				  });
+				  $battlegroundDBConnector.saveBattleground(battleground);
 				  result.message = 'Action #' + actionId + ' performed by ' + unitId + ' to ' + targetId + ' from team #' + targetTeamId + '. ' + skillMeta.description;
 				  result.battlegroundState = $battlegroundDBConnector.getBattleground(0);
 				  defer.resolve(result);
@@ -78,4 +79,22 @@ angular
 			  return defer.promise;
 		  }
 	  }
-  }]);
+	  
+	  function performSkill(options){
+		  console.log(options);
+		  if(options.skillMeta.toTarget){
+			  if(options.skillMeta.toTarget.testValue){
+				  options.targetUnit.testValue += options.skillMeta.toTarget.testValue;
+			  } 
+		  }
+	  }
+  }])
+  .factory('$battleground.engine.dbTables.skills', function(){
+	  return [{
+		  id: 30,
+		  description: 'skill #30, simple physic attack',
+		  toTarget: {
+			  testValue: -150
+		  }
+	  }];
+  });
